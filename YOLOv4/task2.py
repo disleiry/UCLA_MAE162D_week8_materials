@@ -29,6 +29,17 @@ neural_net.setPreferableTarget(cv2.dnn.DNN_TARGET_CUDA)
 confidenceThreshold = 0.5
 nmsThreshold = 0.1
 
+# --- Traffic light + color detection settings ---
+TRAFFIC_LIGHT_CLASS_ID = 0   # TODO: set this to the traffic light index from obj.names if not 0
+
+# HSV red ranges (two ranges because red wraps around 0/180 in HSV)
+LOWER_RED1 = (0, 120, 70)
+UPPER_RED1 = (10, 255, 255)
+LOWER_RED2 = (170, 120, 70)
+UPPER_RED2 = (180, 255, 255)
+
+MIN_RED_CONTOUR_AREA = 150   # tune if needed (start ~100-300)
+
 network = neural_net
 height, width = 128, 128   # input size for network
 

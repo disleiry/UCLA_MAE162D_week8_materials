@@ -14,8 +14,8 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')
 out = cv2.VideoWriter(temp_video, fourcc, 30.0, (640, 480))
 
 # define green color range in HSV
-lower_green = np.array([30, 150, 50])
-upper_green = np.array([85, 255, 255])
+lower_green = np.array([0, 150, 50])
+upper_green = np.array([10, 255, 255])
 
 print("[MAIN] Starting video processing...")
 while True:

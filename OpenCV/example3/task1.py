@@ -15,8 +15,8 @@ out = cv2.VideoWriter(temp_video, fourcc, 30.0, (640, 480))
 
 # define red color range in HSV
 # TODO: adjust the values if needed for different shades of red
-lower_red = np.array([0, 0, 0])
-upper_red = np.array([0, 0, 0])
+lower_red = np.array([0, 150, 50])
+upper_red = np.array([10, 255, 255])
 
 
 print("[MAIN] Starting video processing...")

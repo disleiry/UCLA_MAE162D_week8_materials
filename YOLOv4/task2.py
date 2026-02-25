@@ -33,7 +33,7 @@ network = neural_net
 height, width = 128, 128
 
 # ---------- Traffic light + color detection settings ----------
-TRAFFIC_LIGHT_CLASS_ID = 0  # change if needed based on obj.names
+TRAFFIC_LIGHT_CLASS_ID = 3  # change if needed based on obj.names
 
 LOWER_RED1 = (0, 120, 70)
 UPPER_RED1 = (10, 255, 255)

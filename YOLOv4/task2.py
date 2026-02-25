@@ -40,7 +40,7 @@ UPPER_RED1 = (10, 255, 255)
 LOWER_RED2 = (170, 120, 70)
 UPPER_RED2 = (180, 255, 255)
 
-MIN_RED_CONTOUR_AREA = 150
+MIN_RED_CONTOUR_AREA = 30
 
 # initialize Pi Camera
 picam2 = Picamera2()

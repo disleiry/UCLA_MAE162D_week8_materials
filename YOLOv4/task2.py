@@ -65,54 +65,54 @@ try:
             outputs, frame, confidenceThreshold)
 
         for i in range(len(bounding_boxes)):
-    print(f"[Debug] Detected: Class={class_objects[i]}, Confidence={confidence_probs[i]:.2f}")
+            print(f"[Debug] Detected: Class={class_objects[i]}, Confidence={confidence_probs[i]:.2f}")
 
-    # 1) Filter detections: keep only traffic lights
-    if class_objects[i] != TRAFFIC_LIGHT_CLASS_ID:
-        continue
-
-    # 2) Crop bounding box safely
-    x, y, w, h = bounding_boxes[i]
-    x1 = max(0, x)
-    y1 = max(0, y)
-    x2 = min(frame.shape[1], x + w)
-    y2 = min(frame.shape[0], y + h)
-
-    # guard against invalid boxes
-    if x2 <= x1 or y2 <= y1:
-        continue
-
-    roi = frame[y1:y2, x1:x2]
-
-    # 3) Convert ROI to HSV
-    hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
-
-    # 4) Create red mask (two ranges combined)
-    mask1 = cv2.inRange(hsv, LOWER_RED1, UPPER_RED1)
-    mask2 = cv2.inRange(hsv, LOWER_RED2, UPPER_RED2)
-    red_mask = cv2.bitwise_or(mask1, mask2)
-
-    # optional cleanup to reduce noise
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-    red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_OPEN, kernel, iterations=1)
-    red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_DILATE, kernel, iterations=1)
-
-    # 5) Check contour size
-    contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-    red_detected = False
-    for c in contours:
-        area = cv2.contourArea(c)
-        if area >= MIN_RED_CONTOUR_AREA:
-            red_detected = True
-            break
-
-    # 6) Determine status
-    if red_detected:
-        print("[STATUS] Red light detected!")
-        # (optional) draw label on the main frame
-        cv2.putText(frame, "RED", (x1, max(0, y1 - 10)),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+            # 1) Filter detections: keep only traffic lights
+            if class_objects[i] != TRAFFIC_LIGHT_CLASS_ID:
+                continue
+        
+            # 2) Crop bounding box safely
+            x, y, w, h = bounding_boxes[i]
+            x1 = max(0, x)
+            y1 = max(0, y)
+            x2 = min(frame.shape[1], x + w)
+            y2 = min(frame.shape[0], y + h)
+        
+            # guard against invalid boxes
+            if x2 <= x1 or y2 <= y1:
+                continue
+        
+            roi = frame[y1:y2, x1:x2]
+        
+            # 3) Convert ROI to HSV
+            hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+        
+            # 4) Create red mask (two ranges combined)
+            mask1 = cv2.inRange(hsv, LOWER_RED1, UPPER_RED1)
+            mask2 = cv2.inRange(hsv, LOWER_RED2, UPPER_RED2)
+            red_mask = cv2.bitwise_or(mask1, mask2)
+        
+            # optional cleanup to reduce noise
+            kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+            red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_OPEN, kernel, iterations=1)
+            red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_DILATE, kernel, iterations=1)
+        
+            # 5) Check contour size
+            contours, _ = cv2.findContours(red_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        
+            red_detected = False
+            for c in contours:
+                area = cv2.contourArea(c)
+                if area >= MIN_RED_CONTOUR_AREA:
+                    red_detected = True
+                    break
+        
+            # 6) Determine status
+            if red_detected:
+                print("[STATUS] Red light detected!")
+                # (optional) draw label on the main frame
+                cv2.putText(frame, "RED", (x1, max(0, y1 - 10)),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
         
 
         indices = nms_bbox(

@@ -35,10 +35,10 @@ height, width = 128, 128
 # ---------- Traffic light + color detection settings ----------
 TRAFFIC_LIGHT_CLASS_ID = 3  # change if needed based on obj.names
 
-LOWER_RED1 = (0, 120, 70)
+LOWER_RED1 = (0, 150, 80)
 UPPER_RED1 = (10, 255, 255)
-LOWER_RED2 = (170, 120, 70)
-UPPER_RED2 = (180, 255, 255)
+LOWER_RED2 = (170, 150, 80)
+UPPER_RED2 = (179, 255, 255)
 
 MIN_RED_CONTOUR_AREA = 30
 

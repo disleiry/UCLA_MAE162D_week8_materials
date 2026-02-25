@@ -5,7 +5,7 @@ import os
 from yolo_utils import *
 from picamera2 import Picamera2
 
-#  file names
+# video file names
 temp_video = "temp_recording.avi"
 output_video = "recording.mp4"
 

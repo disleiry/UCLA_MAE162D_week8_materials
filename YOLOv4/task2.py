@@ -49,7 +49,7 @@ picam2.start()
 
 # setup Video Writer
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter(temp_video, fourcc, 30.0, (640, 480))
+out = cv2.VideoWriter(temp_video, fourcc, 10.0, (640, 480))
 
 print("[MAIN] Recording started... Press Ctrl+C to stop.")
 
